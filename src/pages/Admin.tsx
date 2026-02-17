@@ -4,6 +4,7 @@ import React from 'react';
 import Layout from '@/components/Layout';
 import DashboardCard from '@/components/DashboardCard';
 import { motion } from 'framer-motion';
+import { cn } from "@/lib/utils";
 import { 
   BarChart3, 
   TrendingUp, 
