@@ -11,6 +11,8 @@ import Reporting from "./pages/Reporting";
 import Admin from "./pages/Admin";
 import Schedule from "./pages/Schedule";
 import Centers from "./pages/Centers";
+import Intelligence from "./pages/Intelligence";
+import Recommendations from "./pages/Recommendations";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
@@ -30,10 +32,8 @@ const App = () => (
           <Route path="/admin" element={<Admin />} />
           <Route path="/schedule" element={<Schedule />} />
           <Route path="/centers" element={<Centers />} />
-          
-          {/* Fallback routes for unimplemented pages to keep UI functional */}
-          <Route path="/intelligence" element={<Admin />} />
-          <Route path="/recommendations" element={<Admin />} />
+          <Route path="/intelligence" element={<Intelligence />} />
+          <Route path="/recommendations" element={<Recommendations />} />
           
           <Route path="*" element={<NotFound />} />
         </Routes>
