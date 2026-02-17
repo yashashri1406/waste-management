@@ -9,6 +9,8 @@ import Marketplace from "./pages/Marketplace";
 import CitizenScore from "./pages/CitizenScore";
 import Reporting from "./pages/Reporting";
 import Admin from "./pages/Admin";
+import Schedule from "./pages/Schedule";
+import Centers from "./pages/Centers";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
@@ -26,9 +28,10 @@ const App = () => (
           <Route path="/credits" element={<CitizenScore />} />
           <Route path="/report" element={<Reporting />} />
           <Route path="/admin" element={<Admin />} />
+          <Route path="/schedule" element={<Schedule />} />
+          <Route path="/centers" element={<Centers />} />
+          
           {/* Fallback routes for unimplemented pages to keep UI functional */}
-          <Route path="/schedule" element={<Index />} />
-          <Route path="/centers" element={<Index />} />
           <Route path="/intelligence" element={<Admin />} />
           <Route path="/recommendations" element={<Admin />} />
           
