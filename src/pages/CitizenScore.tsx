@@ -12,7 +12,9 @@ import {
   Download, 
   TrendingUp,
   Users,
-  Star
+  Star,
+  Droplets,
+  Zap
 } from 'lucide-react';
 
 const leaderboard = [
