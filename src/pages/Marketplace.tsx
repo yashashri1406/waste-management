@@ -11,7 +11,8 @@ import {
   CheckCircle2, 
   ArrowUpRight,
   Tag,
-  Truck
+  Truck,
+  ShieldCheck
 } from 'lucide-react';
 
 const products = [
