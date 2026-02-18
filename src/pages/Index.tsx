@@ -13,8 +13,9 @@ import {
   AlertCircle, 
   TrendingUp,
   Activity,
-  Map as MapIcon,
-  Layers
+  Layers,
+  Stethoscope,
+  ArrowUpRight
 } from 'lucide-react';
 import { 
   AreaChart, 
@@ -37,11 +38,10 @@ const data = [
 ];
 
 const stats = [
-  { label: 'Total Collected', value: '1,284', unit: 'Tons', icon: Trash2, color: 'text-emerald-400', bg: 'bg-emerald-400/10' },
-  { label: 'Wet Waste', value: '542', unit: 'Tons', icon: Droplets, color: 'text-blue-400', bg: 'bg-blue-400/10' },
-  { label: 'Dry Waste', value: '412', unit: 'Tons', icon: Recycle, color: 'text-amber-400', bg: 'bg-amber-400/10' },
-  { label: 'Plastic Waste', value: '210', unit: 'Tons', icon: Zap, color: 'text-purple-400', bg: 'bg-purple-400/10' },
-  { label: 'E-Waste', value: '120', unit: 'Tons', icon: AlertCircle, color: 'text-red-400', bg: 'bg-red-400/10' },
+  { label: 'Wet Waste', value: '1,240', unit: 'Tons', icon: Droplets, color: 'text-blue-400', bg: 'bg-blue-400/10', trend: '+2.4%' },
+  { label: 'Dry Waste', value: '842', unit: 'Tons', icon: Recycle, color: 'text-amber-400', bg: 'bg-amber-400/10', trend: '-1.2%' },
+  { label: 'Hospital Waste', value: '156', unit: 'Tons', icon: Stethoscope, color: 'text-red-400', bg: 'bg-red-400/10', trend: '+0.8%' },
+  { label: 'Plastic Waste', value: '312', unit: 'Tons', icon: Zap, color: 'text-emerald-400', bg: 'bg-emerald-400/10', trend: '-4.5%' },
 ];
 
 const Index = () => {
@@ -51,76 +51,54 @@ const Index = () => {
         {/* Hero Section: Digital Twin Map */}
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
           <div className="lg:col-span-2 h-[550px] relative rounded-3xl overflow-hidden border border-emerald-500/20 bg-[#050a05] group">
-            {/* Mock Map Visualization */}
             <div className="absolute inset-0 opacity-40">
               <svg viewBox="0 0 800 500" className="w-full h-full">
+                <defs>
+                  <pattern id="grid" width="40" height="40" patternUnits="userSpaceOnUse">
+                    <path d="M 40 0 L 0 0 0 40" fill="none" stroke="rgba(16,185,129,0.1)" strokeWidth="1"/>
+                  </pattern>
+                </defs>
+                <rect width="100%" height="100%" fill="url(#grid)" />
                 <path d="M100,100 Q400,50 700,100 T700,400 Q400,450 100,400 Z" fill="none" stroke="#10b981" strokeWidth="1" strokeDasharray="10,10" />
                 <circle cx="200" cy="150" r="8" fill="#ef4444" className="animate-pulse" />
                 <circle cx="500" cy="200" r="6" fill="#10b981" />
                 <circle cx="350" cy="350" r="10" fill="#ef4444" className="animate-pulse" />
-                <circle cx="600" cy="380" r="6" fill="#10b981" />
-                
-                {/* Flow Lines */}
-                <motion.path 
-                  d="M200,150 L500,200" 
-                  stroke="#10b981" 
-                  strokeWidth="2" 
-                  initial={{ pathLength: 0 }}
-                  animate={{ pathLength: 1 }}
-                  transition={{ duration: 3, repeat: Infinity }}
-                />
-                <motion.path 
-                  d="M350,350 L600,380" 
-                  stroke="#10b981" 
-                  strokeWidth="2" 
-                  initial={{ pathLength: 0 }}
-                  animate={{ pathLength: 1 }}
-                  transition={{ duration: 3, repeat: Infinity, delay: 1.5 }}
-                />
               </svg>
             </div>
 
-            {/* Overlay UI */}
             <div className="absolute inset-0 p-8 flex flex-col justify-between pointer-events-none">
               <div className="flex justify-between items-start pointer-events-auto">
                 <div>
-                  <h3 className="text-2xl font-bold text-white">City Digital Twin</h3>
-                  <p className="text-sm text-emerald-500/80 font-medium">Real-Time Waste Flow Analysis</p>
+                  <h3 className="text-3xl font-black text-white tracking-tighter">City Digital Twin</h3>
+                  <p className="text-sm text-emerald-500/80 font-bold">Real-time waste flow & infrastructure monitoring</p>
                 </div>
                 <div className="flex gap-3">
-                  <button className="bg-emerald-500 text-black px-4 py-2 rounded-full text-xs font-bold flex items-center gap-2 hover:scale-105 transition-transform">
-                    <Activity size={14} /> AI PREDICTION ON
+                  <button className="bg-emerald-500 text-black px-4 py-2 rounded-full text-[10px] font-black flex items-center gap-2 hover:scale-105 transition-transform">
+                    AI PREDICTION: ON
                   </button>
-                  <button className="bg-white/10 backdrop-blur-md text-white px-4 py-2 rounded-full text-xs font-bold flex items-center gap-2 hover:bg-white/20 transition-colors">
-                    <Layers size={14} /> SATELLITE
+                  <button className="bg-white/10 backdrop-blur-md text-white px-4 py-2 rounded-full text-[10px] font-black flex items-center gap-2 hover:bg-white/20 transition-colors">
+                    LAYER: WASTE FLOW
                   </button>
                 </div>
               </div>
 
               <div className="flex justify-between items-end pointer-events-auto">
-                <div className="bg-black/60 backdrop-blur-xl p-5 rounded-2xl border border-white/10 max-w-xs">
+                <div className="bg-black/80 backdrop-blur-xl p-6 rounded-2xl border border-red-500/30 max-w-xs shadow-[0_0_30px_rgba(239,68,68,0.1)]">
                   <div className="flex items-center gap-2 mb-2">
-                    <AlertCircle className="text-red-500" size={16} />
-                    <p className="text-xs text-red-400 font-bold uppercase tracking-tighter">High Risk Alert</p>
+                    <AlertCircle className="text-red-500" size={18} />
+                    <p className="text-xs text-red-400 font-black uppercase tracking-tighter">Critical Alert: Hospital Node</p>
                   </div>
-                  <p className="text-sm font-medium text-white">Sector 12: Predicted bin overflow in 45 mins. Rerouting vehicle VB-402.</p>
-                  <div className="w-full bg-white/10 h-1.5 mt-3 rounded-full overflow-hidden">
-                    <motion.div 
-                      initial={{ width: 0 }}
-                      animate={{ width: "85%" }}
-                      className="bg-red-500 h-full" 
-                    />
-                  </div>
+                  <p className="text-sm font-medium text-white/90">Bio-hazard accumulation detected at AIIMS Node. Specialized vehicle VB-MED-01 dispatched.</p>
                 </div>
 
-                <div className="flex flex-col gap-2">
-                  <div className="bg-black/40 backdrop-blur-md p-3 rounded-xl border border-white/5 flex items-center gap-3">
+                <div className="bg-emerald-500/10 backdrop-blur-md p-4 rounded-2xl border border-emerald-500/20">
+                  <div className="flex items-center gap-2 mb-1">
                     <div className="w-2 h-2 bg-emerald-500 rounded-full animate-pulse" />
-                    <span className="text-[10px] font-bold text-gray-300">12 VEHICLES ACTIVE</span>
+                    <span className="text-[10px] font-black text-emerald-400 uppercase">City Green Score</span>
                   </div>
-                  <div className="bg-black/40 backdrop-blur-md p-3 rounded-xl border border-white/5 flex items-center gap-3">
-                    <div className="w-2 h-2 bg-blue-500 rounded-full" />
-                    <span className="text-[10px] font-bold text-gray-300">4 PROCESSING HUBS</span>
+                  <div className="flex items-baseline gap-1">
+                    <span className="text-3xl font-black">842</span>
+                    <span className="text-xs text-gray-500 font-bold">/ 1000</span>
                   </div>
                 </div>
               </div>
@@ -128,52 +106,52 @@ const Index = () => {
           </div>
 
           <div className="space-y-6">
-            <DashboardCard title="Live Waste Counters" subtitle="Real-time city metrics">
-              <div className="space-y-3">
-                {stats.map((stat, i) => (
-                  <motion.div 
-                    key={i}
-                    initial={{ opacity: 0, x: 20 }}
-                    animate={{ opacity: 1, x: 0 }}
-                    transition={{ delay: i * 0.1 }}
-                    className="flex items-center justify-between p-3 rounded-2xl bg-white/5 border border-white/5 hover:border-emerald-500/30 transition-colors"
-                  >
-                    <div className="flex items-center gap-3">
-                      <div className={cn("p-2 rounded-xl", stat.bg)}>
-                        <stat.icon className={stat.color} size={18} />
+            <div className="grid grid-cols-1 gap-4">
+              {stats.map((stat, i) => (
+                <motion.div 
+                  key={i}
+                  initial={{ opacity: 0, x: 20 }}
+                  animate={{ opacity: 1, x: 0 }}
+                  transition={{ delay: i * 0.1 }}
+                  className="bg-white/5 backdrop-blur-xl border border-white/10 p-5 rounded-2xl flex items-center justify-between group hover:border-emerald-500/30 transition-all"
+                >
+                  <div className="flex items-center gap-4">
+                    <div className={cn("p-3 rounded-xl", stat.bg)}>
+                      <stat.icon className={stat.color} size={20} />
+                    </div>
+                    <div>
+                      <p className="text-[10px] font-black text-gray-500 uppercase tracking-widest">{stat.label}</p>
+                      <div className="flex items-baseline gap-1">
+                        <span className="text-2xl font-black">{stat.value}</span>
+                        <span className="text-[10px] text-gray-500 font-bold">{stat.unit}</span>
                       </div>
-                      <span className="text-sm font-medium text-gray-300">{stat.label}</span>
                     </div>
-                    <div className="text-right">
-                      <span className="text-lg font-bold block leading-none">{stat.value}</span>
-                      <span className="text-[10px] text-gray-500 font-bold uppercase">{stat.unit}</span>
-                    </div>
-                  </motion.div>
-                ))}
-              </div>
-            </DashboardCard>
-
-            <DashboardCard title="Environmental Impact" subtitle="CO2 Reduction Today">
-              <div className="flex flex-col items-center justify-center py-2">
-                <div className="relative w-28 h-28">
-                  <svg className="w-full h-full" viewBox="0 0 100 100">
-                    <circle cx="50" cy="50" r="45" fill="none" stroke="rgba(255,255,255,0.1)" strokeWidth="8" />
-                    <circle cx="50" cy="50" r="45" fill="none" stroke="#10b981" strokeWidth="8" strokeDasharray="283" strokeDashoffset="70" strokeLinecap="round" className="animate-[dash_2s_ease-in-out]" />
-                  </svg>
-                  <div className="absolute inset-0 flex flex-col items-center justify-center">
-                    <span className="text-2xl font-bold">75%</span>
-                    <span className="text-[10px] text-emerald-500 font-bold">TARGET</span>
                   </div>
+                  <div className={cn(
+                    "text-[10px] font-black px-2 py-1 rounded-lg",
+                    stat.trend.startsWith('+') ? "bg-emerald-500/10 text-emerald-500" : "bg-red-500/10 text-red-500"
+                  )}>
+                    {stat.trend}
+                  </div>
+                </motion.div>
+              ))}
+            </div>
+
+            <DashboardCard className="bg-emerald-500 border-emerald-400/50 shadow-[0_0_40px_rgba(16,185,129,0.2)]" title="AI Infrastructure Insights" subtitle="Priority Actions">
+              <div className="space-y-4 mt-2">
+                <div className="p-4 rounded-xl bg-black/20 border border-white/10">
+                  <h4 className="text-sm font-black text-black mb-1">OPTIMIZE: SECTOR 12</h4>
+                  <p className="text-xs text-black/70 font-medium">Predicted 40% surge in dry waste. Deploying additional sorting units to MRF-04.</p>
                 </div>
-                <p className="mt-4 text-center text-sm text-gray-400 px-4">
-                  <span className="text-emerald-400 font-bold">12.4 Tons</span> of CO2 emissions prevented today.
-                </p>
+                <div className="p-4 rounded-xl bg-black/20 border border-white/10">
+                  <h4 className="text-sm font-black text-black mb-1">REVENUE ALERT</h4>
+                  <p className="text-xs text-black/70 font-medium">Compost quality at Hub-02 reached Grade A. Market value increased by 15%.</p>
+                </div>
               </div>
             </DashboardCard>
           </div>
         </div>
 
-        {/* Secondary Section: Analytics & Trends */}
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
           <DashboardCard title="Waste Generation Trends" subtitle="Hourly collection volume (Tons)">
             <div className="h-[300px] w-full mt-4">
@@ -186,11 +164,10 @@ const Index = () => {
                     </linearGradient>
                   </defs>
                   <CartesianGrid strokeDasharray="3 3" stroke="rgba(255,255,255,0.05)" vertical={false} />
-                  <XAxis dataKey="name" stroke="rgba(255,255,255,0.3)" fontSize={12} tickLine={false} axisLine={false} />
-                  <YAxis stroke="rgba(255,255,255,0.3)" fontSize={12} tickLine={false} axisLine={false} />
+                  <XAxis dataKey="name" stroke="rgba(255,255,255,0.3)" fontSize={10} tickLine={false} axisLine={false} />
+                  <YAxis stroke="rgba(255,255,255,0.3)" fontSize={10} tickLine={false} axisLine={false} />
                   <Tooltip 
-                    contentStyle={{ backgroundColor: 'rgba(0,0,0,0.8)', border: '1px solid rgba(255,255,255,0.1)', borderRadius: '12px' }}
-                    itemStyle={{ color: '#10b981' }}
+                    contentStyle={{ backgroundColor: 'rgba(0,0,0,0.9)', border: '1px solid rgba(255,255,255,0.1)', borderRadius: '12px' }}
                   />
                   <Area type="monotone" dataKey="waste" stroke="#10b981" strokeWidth={3} fillOpacity={1} fill="url(#colorWaste)" />
                 </AreaChart>
@@ -198,35 +175,24 @@ const Index = () => {
             </div>
           </DashboardCard>
 
-          <DashboardCard title="AI Infrastructure Insights" subtitle="Recommended actions for today">
+          <DashboardCard title="Hospital Waste Management" subtitle="Bio-hazard Safety Protocol">
             <div className="space-y-4 mt-2">
-              <div className="p-4 rounded-2xl bg-amber-500/10 border border-amber-500/20 flex gap-4">
-                <div className="p-2 bg-amber-500/20 rounded-xl h-fit">
-                  <AlertCircle className="text-amber-500" size={20} />
+              <div className="p-4 rounded-2xl bg-red-500/10 border border-red-500/20 flex gap-4">
+                <div className="p-2 bg-red-500/20 rounded-xl h-fit">
+                  <Stethoscope className="text-red-500" size={20} />
                 </div>
                 <div>
-                  <h4 className="font-bold text-amber-500">New Dustbins Required</h4>
-                  <p className="text-sm text-gray-400">Sector 45 shows 40% higher plastic waste than average. Recommend installing 5 smart bins.</p>
+                  <h4 className="font-black text-red-500 text-sm">STERILIZATION STATUS</h4>
+                  <p className="text-xs text-gray-400">98% of hospital waste processed via autoclave today. Zero contamination reported.</p>
                 </div>
               </div>
-              
-              <div className="p-4 rounded-2xl bg-emerald-500/10 border border-emerald-500/20 flex gap-4">
-                <div className="p-2 bg-emerald-500/20 rounded-xl h-fit">
-                  <TrendingUp className="text-emerald-500" size={20} />
-                </div>
-                <div>
-                  <h4 className="font-bold text-emerald-500">Efficiency Peak</h4>
-                  <p className="text-sm text-gray-400">Segregation efficiency in Ward 7 reached 92% today. Consider rewarding the local community.</p>
-                </div>
-              </div>
-
               <div className="p-4 rounded-2xl bg-blue-500/10 border border-blue-500/20 flex gap-4">
                 <div className="p-2 bg-blue-500/20 rounded-xl h-fit">
                   <Activity className="text-blue-500" size={20} />
                 </div>
                 <div>
-                  <h4 className="font-bold text-blue-500">Festival Surge Prediction</h4>
-                  <p className="text-sm text-gray-400">Upcoming festival on Sunday. Predicted 35% increase in wet waste. Routing optimized.</p>
+                  <h4 className="font-black text-blue-500 text-sm">LOGISTICS TRACKING</h4>
+                  <p className="text-xs text-gray-400">5 specialized bio-hazard vehicles active. Average response time: 14 minutes.</p>
                 </div>
               </div>
             </div>
