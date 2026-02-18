@@ -43,11 +43,11 @@ const Layout = ({ children }: { children: React.ReactNode }) => {
       {/* Sidebar */}
       <aside 
         className={cn(
-          "fixed left-0 top-0 h-full z-50 transition-all duration-300 border-r border-emerald-900/20 bg-black/40 backdrop-blur-2xl",
+          "fixed left-0 top-0 h-full z-50 transition-all duration-300 border-r border-emerald-900/20 bg-black/40 backdrop-blur-2xl flex flex-col",
           isSidebarOpen ? "w-72" : "w-20"
         )}
       >
-        <div className="p-6 flex items-center gap-3">
+        <div className="p-6 flex items-center gap-3 shrink-0">
           <div className="w-10 h-10 bg-emerald-500 rounded-xl flex items-center justify-center shadow-[0_0_25px_rgba(16,185,129,0.4)]">
             <Leaf className="text-black" size={24} />
           </div>
@@ -63,7 +63,7 @@ const Layout = ({ children }: { children: React.ReactNode }) => {
           )}
         </div>
 
-        <nav className="mt-8 px-4 space-y-1">
+        <nav className="mt-4 px-4 space-y-1 flex-grow overflow-y-auto scrollbar-none">
           {navItems.map((item) => (
             <Link
               key={item.path}
@@ -79,15 +79,15 @@ const Layout = ({ children }: { children: React.ReactNode }) => {
                 <div className="absolute left-0 top-0 w-1 h-full bg-emerald-500" />
               )}
               <item.icon size={20} className={cn(
-                "transition-transform duration-300 group-hover:scale-110",
+                "transition-transform duration-300 group-hover:scale-110 shrink-0",
                 location.pathname === item.path ? "text-emerald-400" : "text-gray-600"
               )} />
-              {isSidebarOpen && <span className="font-bold text-xs uppercase tracking-wider">{item.label}</span>}
+              {isSidebarOpen && <span className="font-bold text-xs uppercase tracking-wider truncate">{item.label}</span>}
             </Link>
           ))}
         </nav>
 
-        <div className="absolute bottom-8 left-0 w-full px-6">
+        <div className="p-6 shrink-0">
           {isSidebarOpen && (
             <div className="p-4 rounded-2xl bg-emerald-500/5 border border-emerald-500/10">
               <div className="flex items-center gap-2 mb-2">
