@@ -13,7 +13,8 @@ import {
   TrendingUp, 
   Users, 
   ShieldCheck,
-  Medal
+  Medal,
+  CheckCircle2
 } from 'lucide-react';
 
 const rankings = [
