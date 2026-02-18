@@ -100,13 +100,6 @@ const Layout = ({ children }: { children: React.ReactNode }) => {
             </div>
           )}
         </div>
-
-        <button 
-          onClick={() => setIsSidebarOpen(!isSidebarOpen)}
-          className="absolute top-1/2 -right-3 w-6 h-12 bg-emerald-500 rounded-full flex items-center justify-center text-black hover:scale-110 transition-transform z-50"
-        >
-          {isSidebarOpen ? <X size={14} /> : <Menu size={14} />}
-        </button>
       </aside>
 
       {/* Main Content */}
@@ -114,15 +107,24 @@ const Layout = ({ children }: { children: React.ReactNode }) => {
         "transition-all duration-300 min-h-screen",
         isSidebarOpen ? "pl-72" : "pl-20"
       )}>
-        {/* Top Navbar from Image */}
+        {/* Top Navbar */}
         <header className="h-24 border-b border-emerald-900/10 bg-black/20 backdrop-blur-md flex items-center justify-between px-10 sticky top-0 z-40">
-          <div className="flex-grow max-w-2xl relative">
-            <Search className="absolute left-6 top-1/2 -translate-y-1/2 text-emerald-500/40" size={20} />
-            <input 
-              type="text" 
-              placeholder="Search city nodes, recycling centers, or reports..." 
-              className="w-full bg-white/5 border border-white/10 rounded-2xl py-4 pl-16 pr-6 focus:outline-none focus:border-emerald-500/50 transition-all font-bold text-sm text-emerald-500/80 placeholder:text-emerald-500/20"
-            />
+          <div className="flex items-center gap-6 flex-grow max-w-3xl">
+            <button 
+              onClick={() => setIsSidebarOpen(!isSidebarOpen)}
+              className="p-3 bg-emerald-500/10 border border-emerald-500/20 rounded-xl text-emerald-500 hover:bg-emerald-500/20 transition-all shrink-0"
+            >
+              {isSidebarOpen ? <X size={20} /> : <Menu size={20} />}
+            </button>
+            
+            <div className="flex-grow relative">
+              <Search className="absolute left-6 top-1/2 -translate-y-1/2 text-emerald-500/40" size={20} />
+              <input 
+                type="text" 
+                placeholder="Search city nodes, recycling centers, or reports..." 
+                className="w-full bg-white/5 border border-white/10 rounded-2xl py-4 pl-16 pr-6 focus:outline-none focus:border-emerald-500/50 transition-all font-bold text-sm text-emerald-500/80 placeholder:text-emerald-500/20"
+              />
+            </div>
           </div>
           
           <div className="flex items-center gap-8">
