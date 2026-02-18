@@ -17,7 +17,9 @@ import {
   Bell,
   Leaf,
   ShieldCheck,
-  Activity
+  Activity,
+  Search,
+  User
 } from 'lucide-react';
 import { cn } from "@/lib/utils";
 
@@ -54,10 +56,10 @@ const Layout = ({ children }: { children: React.ReactNode }) => {
           {isSidebarOpen && (
             <div className="flex flex-col">
               <span className="font-black text-lg tracking-tighter leading-none text-emerald-400">
-                GREENGRID 2047
+                VIKSIT BHARAT
               </span>
               <span className="text-[10px] font-bold text-emerald-700 tracking-[0.2em] uppercase">
-                Viksit Bharat
+                Waste Intel 2047
               </span>
             </div>
           )}
@@ -112,34 +114,30 @@ const Layout = ({ children }: { children: React.ReactNode }) => {
         "transition-all duration-300 min-h-screen",
         isSidebarOpen ? "pl-72" : "pl-20"
       )}>
-        {/* Top Navbar */}
-        <header className="h-20 border-b border-emerald-900/10 bg-black/20 backdrop-blur-md flex items-center justify-between px-10 sticky top-0 z-40">
-          <div className="flex items-center gap-4">
-            <div className="h-8 w-[2px] bg-emerald-500/30" />
-            <div>
-              <h2 className="text-[10px] font-black text-emerald-500/60 uppercase tracking-[0.3em]">Digital Waste Governance</h2>
-              <h1 className="text-lg font-black tracking-tight">COMMAND CENTER <span className="text-emerald-500">01</span></h1>
-            </div>
+        {/* Top Navbar from Image */}
+        <header className="h-24 border-b border-emerald-900/10 bg-black/20 backdrop-blur-md flex items-center justify-between px-10 sticky top-0 z-40">
+          <div className="flex-grow max-w-2xl relative">
+            <Search className="absolute left-6 top-1/2 -translate-y-1/2 text-emerald-500/40" size={20} />
+            <input 
+              type="text" 
+              placeholder="Search city nodes, recycling centers, or reports..." 
+              className="w-full bg-white/5 border border-white/10 rounded-2xl py-4 pl-16 pr-6 focus:outline-none focus:border-emerald-500/50 transition-all font-bold text-sm text-emerald-500/80 placeholder:text-emerald-500/20"
+            />
           </div>
           
           <div className="flex items-center gap-8">
-            <div className="flex items-center gap-3 bg-emerald-500/5 px-5 py-2.5 rounded-full border border-emerald-500/10">
-              <div className="w-2 h-2 bg-emerald-500 rounded-full animate-pulse shadow-[0_0_10px_rgba(16,185,129,0.8)]" />
-              <span className="text-[10px] font-black text-emerald-400 tracking-widest">SYSTEM STATUS: OPTIMAL</span>
-            </div>
+            <button className="relative p-3 text-emerald-500/60 hover:text-emerald-400 transition-colors bg-white/5 rounded-xl border border-white/10">
+              <Bell size={20} />
+              <span className="absolute top-2 right-2 w-2 h-2 bg-emerald-500 rounded-full border-2 border-black animate-pulse" />
+            </button>
             
-            <div className="flex items-center gap-6">
-              <button className="relative p-2 text-gray-500 hover:text-emerald-400 transition-colors">
-                <Bell size={20} />
-                <span className="absolute top-1.5 right-1.5 w-2 h-2 bg-red-500 rounded-full border-2 border-black" />
-              </button>
-              
-              <div className="flex items-center gap-4 pl-6 border-l border-emerald-900/20">
-                <div className="text-right hidden lg:block">
-                  <p className="text-xs font-black uppercase tracking-tighter">Officer R. Sharma</p>
-                  <p className="text-[10px] text-emerald-500/70 font-bold">Governance ID: 2047-IND-01</p>
-                </div>
-                <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-emerald-400 to-teal-600 border border-emerald-500/30 shadow-lg" />
+            <div className="flex items-center gap-4 pl-8 border-l border-emerald-900/20">
+              <div className="text-right hidden lg:block">
+                <p className="text-xs font-black uppercase tracking-tighter">Admin Node 01</p>
+                <p className="text-[10px] text-emerald-500/40 font-bold uppercase tracking-widest">Gov-Intel-Auth</p>
+              </div>
+              <div className="w-12 h-12 rounded-2xl bg-emerald-500/10 border border-emerald-500/20 flex items-center justify-center text-emerald-500">
+                <User size={24} />
               </div>
             </div>
           </div>
