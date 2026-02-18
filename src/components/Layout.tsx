@@ -23,14 +23,14 @@ import { cn } from "@/lib/utils";
 
 const navItems = [
   { icon: LayoutDashboard, label: 'Digital Twin', path: '/' },
-  { icon: Building2, label: 'Infrastructure', path: '/infrastructure' },
-  { icon: Calendar, label: 'Collection Schedule', path: '/schedule' },
   { icon: MapIcon, label: 'Interactive Map', path: '/map' },
-  { icon: BookOpen, label: 'Awareness Hub', path: '/awareness' },
+  { icon: Calendar, label: 'Collection Schedule', path: '/schedule' },
+  { icon: Building2, label: 'Infrastructure', path: '/infrastructure' },
   { icon: Database, label: 'Recycling Centres', path: '/centers' },
   { icon: Activity, label: 'Resource Utilization', path: '/resources' },
   { icon: Trophy, label: 'Green Achievements', path: '/achievements' },
   { icon: AlertTriangle, label: 'Report Dumping', path: '/report' },
+  { icon: BookOpen, label: 'Awareness Hub', path: '/awareness' },
   { icon: BarChart3, label: 'Impact Analysis', path: '/impact' },
 ];
 
