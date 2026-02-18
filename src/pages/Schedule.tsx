@@ -1,6 +1,6 @@
 "use client";
 
-import React from 'react';
+import React, { useState } from 'react';
 import Layout from '@/components/Layout';
 import DashboardCard from '@/components/DashboardCard';
 import { motion } from 'framer-motion';
@@ -10,78 +10,105 @@ import {
   Clock, 
   Truck, 
   MapPin, 
-  Bell,
+  Search,
   CheckCircle2,
-  AlertCircle
+  AlertCircle,
+  Stethoscope,
+  Droplets,
+  Recycle,
+  Zap,
+  Activity
 } from 'lucide-react';
 
-const scheduleData = [
-  { day: 'Monday', type: 'Wet Waste', time: '07:00 AM - 09:00 AM', status: 'Completed', color: 'text-blue-400', bg: 'bg-blue-400/10' },
-  { day: 'Tuesday', type: 'Dry Waste', time: '07:30 AM - 09:30 AM', status: 'Scheduled', color: 'text-amber-400', bg: 'bg-amber-400/10' },
-  { day: 'Wednesday', type: 'Plastic Waste', time: '08:00 AM - 10:00 AM', status: 'Scheduled', color: 'text-emerald-400', bg: 'bg-emerald-400/10' },
-  { day: 'Thursday', type: 'Wet Waste', time: '07:00 AM - 09:00 AM', status: 'Scheduled', color: 'text-blue-400', bg: 'bg-blue-400/10' },
-  { day: 'Friday', type: 'E-Waste', time: '09:00 AM - 12:00 PM', status: 'Scheduled', color: 'text-red-400', bg: 'bg-red-400/10' },
+const collectionData = [
+  { area: 'Sector 12, Dwarka', vehicle: 'VB-TRK-402', driver: 'Amit Kumar', time: '07:00 AM', status: 'Completed', types: ['Wet', 'Dry', 'Plastic', 'E-Waste', 'Hospital'] },
+  { area: 'Sector 10, Dwarka', vehicle: 'VB-TRK-405', driver: 'Rajesh Singh', time: '07:30 AM', status: 'On Route', types: ['Wet', 'Dry', 'Plastic', 'E-Waste', 'Hospital'] },
+  { area: 'Sector 18, Dwarka', vehicle: 'VB-TRK-408', driver: 'Suresh Pal', time: '08:00 AM', status: 'Delayed', types: ['Wet', 'Dry', 'Plastic', 'E-Waste', 'Hospital'] },
+  { area: 'Medical District', vehicle: 'VB-MED-101', driver: 'Vikram Dev', time: '06:00 AM', status: 'Completed', types: ['Hospital'] },
+  { area: 'Pocket 4, Sector 12', vehicle: 'VB-TRK-412', driver: 'Mohit Rao', time: '08:30 AM', status: 'On Route', types: ['Wet', 'Dry', 'Plastic', 'E-Waste', 'Hospital'] },
 ];
 
 const Schedule = () => {
+  const [searchQuery, setSearchQuery] = useState('');
+
   return (
     <Layout>
       <div className="space-y-8">
-        <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
+        <div className="flex flex-col md:flex-row md:items-center justify-between gap-6">
           <div>
-            <h1 className="text-4xl font-bold mb-2">Collection Schedule</h1>
-            <p className="text-gray-400">Real-time tracking of waste collection vehicles in your sector.</p>
+            <h1 className="text-4xl font-black tracking-tighter mb-2">COLLECTION SCHEDULE</h1>
+            <p className="text-gray-500 font-medium">Daily multi-waste collection system for all sectors.</p>
           </div>
-          <button className="bg-emerald-500 text-black px-6 py-3 rounded-xl font-bold hover:scale-105 transition-transform flex items-center gap-2">
-            <Bell size={18} /> Notify Me
-          </button>
+          
+          <div className="relative w-full md:w-96">
+            <Search className="absolute left-4 top-1/2 -translate-y-1/2 text-gray-500" size={18} />
+            <input 
+              type="text" 
+              placeholder="Search by locality..." 
+              className="w-full bg-white/5 border border-white/10 rounded-2xl py-4 pl-12 pr-4 focus:outline-none focus:border-emerald-500/50 transition-all font-bold text-sm"
+              value={searchQuery}
+              onChange={(e) => setSearchQuery(e.target.value)}
+            />
+          </div>
         </div>
 
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
-          <DashboardCard className="lg:col-span-2" title="Weekly Routine" subtitle="Sector 12, Dwarka">
-            <div className="space-y-4 mt-4">
-              {scheduleData.map((item, i) => (
-                <motion.div 
-                  key={i}
-                  initial={{ opacity: 0, x: -20 }}
-                  animate={{ opacity: 1, x: 0 }}
-                  transition={{ delay: i * 0.1 }}
-                  className="flex items-center justify-between p-5 rounded-2xl bg-white/5 border border-white/5 hover:border-emerald-500/30 transition-colors group"
-                >
-                  <div className="flex items-center gap-4">
-                    <div className={cn("w-12 h-12 rounded-xl flex items-center justify-center", item.bg)}>
-                      <CalendarIcon className={item.color} size={24} />
-                    </div>
-                    <div>
-                      <h4 className="font-bold text-lg">{item.day}</h4>
-                      <div className="flex items-center gap-2 text-sm text-gray-500">
-                        <Clock size={14} /> {item.time}
-                      </div>
-                    </div>
-                  </div>
-                  
-                  <div className="flex items-center gap-8">
-                    <div className="text-right hidden sm:block">
-                      <p className={cn("text-sm font-bold", item.color)}>{item.type}</p>
-                      <p className="text-[10px] text-gray-500 uppercase font-bold tracking-widest">CATEGORY</p>
-                    </div>
-                    <div className={cn(
-                      "px-3 py-1 rounded-lg text-[10px] font-black uppercase tracking-widest",
-                      item.status === 'Completed' ? "bg-emerald-500/20 text-emerald-500" : "bg-white/10 text-gray-400"
-                    )}>
-                      {item.status}
-                    </div>
-                  </div>
-                </motion.div>
-              ))}
+          <DashboardCard className="lg:col-span-2" title="Daily Fleet Deployment" subtitle="Real-time vehicle assignment data">
+            <div className="overflow-x-auto mt-6">
+              <table className="w-full text-left border-collapse">
+                <thead>
+                  <tr className="border-b border-white/5">
+                    <th className="pb-4 text-[10px] font-black text-gray-500 uppercase tracking-widest">Area / Locality</th>
+                    <th className="pb-4 text-[10px] font-black text-gray-500 uppercase tracking-widest">Vehicle & Driver</th>
+                    <th className="pb-4 text-[10px] font-black text-gray-500 uppercase tracking-widest">Arrival</th>
+                    <th className="pb-4 text-[10px] font-black text-gray-500 uppercase tracking-widest">Status</th>
+                  </tr>
+                </thead>
+                <tbody className="divide-y divide-white/5">
+                  {collectionData.map((item, i) => (
+                    <tr key={i} className="group hover:bg-white/5 transition-colors">
+                      <td className="py-5">
+                        <div className="flex flex-col">
+                          <span className="font-bold text-sm">{item.area}</span>
+                          <div className="flex gap-1 mt-1">
+                            {item.types.map((t, idx) => (
+                              <span key={idx} className="text-[8px] font-black px-1.5 py-0.5 rounded bg-emerald-500/10 text-emerald-500 uppercase">{t}</span>
+                            ))}
+                          </div>
+                        </div>
+                      </td>
+                      <td className="py-5">
+                        <div className="flex flex-col">
+                          <span className="font-bold text-sm">{item.vehicle}</span>
+                          <span className="text-[10px] text-gray-500">{item.driver}</span>
+                        </div>
+                      </td>
+                      <td className="py-5">
+                        <div className="flex items-center gap-2 font-bold text-sm">
+                          <Clock size={14} className="text-emerald-500" /> {item.time}
+                        </div>
+                      </td>
+                      <td className="py-5">
+                        <span className={cn(
+                          "text-[10px] font-black px-2.5 py-1 rounded-lg uppercase tracking-widest",
+                          item.status === 'Completed' ? "bg-emerald-500/10 text-emerald-500" :
+                          item.status === 'On Route' ? "bg-blue-500/10 text-blue-500" :
+                          "bg-red-500/10 text-red-500"
+                        )}>
+                          {item.status}
+                        </span>
+                      </td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
             </div>
           </DashboardCard>
 
           <div className="space-y-6">
-            <DashboardCard title="Live Vehicle Tracking" subtitle="Vehicle ID: VB-TRK-402">
-              <div className="aspect-square rounded-2xl bg-[#0a150a] relative overflow-hidden mb-6">
-                {/* Mock Map */}
-                <div className="absolute inset-0 opacity-30">
+            <DashboardCard title="Route Map Preview" subtitle="Vehicle ID: VB-TRK-405">
+              <div className="aspect-square rounded-3xl bg-[#0a150a] relative overflow-hidden mb-6 border border-white/5">
+                <div className="absolute inset-0 opacity-20">
                   <svg viewBox="0 0 100 100" className="w-full h-full">
                     <path d="M10,10 L90,10 L90,90 L10,90 Z" fill="none" stroke="#10b981" strokeWidth="0.5" />
                     <path d="M10,50 L90,50 M50,10 L50,90" fill="none" stroke="#10b981" strokeWidth="0.5" />
@@ -93,39 +120,43 @@ const Schedule = () => {
                     y: [20, 20, 60, 60]
                   }}
                   transition={{ duration: 10, repeat: Infinity, ease: "linear" }}
-                  className="absolute w-6 h-6 bg-emerald-500 rounded-lg flex items-center justify-center shadow-[0_0_15px_rgba(16,185,129,0.5)]"
+                  className="absolute w-8 h-8 bg-emerald-500 rounded-xl flex items-center justify-center shadow-[0_0_20px_rgba(16,185,129,0.5)]"
                 >
-                  <Truck size={14} className="text-black" />
+                  <Truck size={16} className="text-black" />
                 </motion.div>
-                <div className="absolute bottom-4 left-4 bg-black/80 backdrop-blur-md px-3 py-1.5 rounded-lg border border-white/10">
-                  <p className="text-[10px] font-bold text-emerald-500">ETA: 12 MINS</p>
+                <div className="absolute bottom-4 left-4 bg-black/80 backdrop-blur-md px-4 py-2 rounded-xl border border-white/10">
+                  <p className="text-[10px] font-black text-emerald-500 uppercase tracking-widest">ETA: 14 MINS</p>
                 </div>
               </div>
               
               <div className="space-y-4">
-                <div className="flex items-center gap-3 p-3 rounded-xl bg-white/5 border border-white/5">
-                  <MapPin className="text-emerald-500" size={18} />
+                <div className="flex items-center gap-4 p-4 rounded-2xl bg-white/5 border border-white/5">
+                  <div className="p-2 rounded-lg bg-emerald-500/10">
+                    <MapPin className="text-emerald-500" size={18} />
+                  </div>
                   <div>
-                    <p className="text-xs font-bold">Current Location</p>
-                    <p className="text-[10px] text-gray-500">Sector 11 Main Road</p>
+                    <p className="text-xs font-black uppercase tracking-widest text-gray-500">Current Location</p>
+                    <p className="text-sm font-bold">Sector 11 Main Road</p>
                   </div>
                 </div>
-                <div className="flex items-center gap-3 p-3 rounded-xl bg-white/5 border border-white/5">
-                  <CheckCircle2 className="text-blue-500" size={18} />
+                <div className="flex items-center gap-4 p-4 rounded-2xl bg-white/5 border border-white/5">
+                  <div className="p-2 rounded-lg bg-blue-500/10">
+                    <CheckCircle2 className="text-blue-500" size={18} />
+                  </div>
                   <div>
-                    <p className="text-xs font-bold">Next Stop</p>
-                    <p className="text-[10px] text-gray-500">Pocket 4, Sector 12</p>
+                    <p className="text-xs font-black uppercase tracking-widest text-gray-500">Next Stop</p>
+                    <p className="text-sm font-bold">Pocket 4, Sector 12</p>
                   </div>
                 </div>
               </div>
             </DashboardCard>
 
-            <DashboardCard className="bg-amber-500/5 border-amber-500/20">
+            <DashboardCard className="bg-emerald-500/5 border-emerald-500/20">
               <div className="flex gap-4">
-                <AlertCircle className="text-amber-500 shrink-0" size={24} />
+                <AlertCircle className="text-emerald-500 shrink-0" size={24} />
                 <div>
-                  <h4 className="font-bold text-amber-500">Holiday Notice</h4>
-                  <p className="text-xs text-gray-400 mt-1">Collection will be delayed by 2 hours this Sunday due to the local festival parade.</p>
+                  <h4 className="text-sm font-black uppercase tracking-widest text-emerald-500">Daily Protocol</h4>
+                  <p className="text-xs text-gray-400 mt-1 leading-relaxed">All 5 waste categories are collected daily. Ensure segregation is maintained for efficient processing.</p>
                 </div>
               </div>
             </DashboardCard>

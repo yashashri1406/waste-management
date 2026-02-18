@@ -4,15 +4,15 @@ import { TooltipProvider } from "@/components/ui/tooltip";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Index from "./pages/Index";
-import Education from "./pages/Education";
-import Marketplace from "./pages/Marketplace";
-import CitizenScore from "./pages/CitizenScore";
-import Reporting from "./pages/Reporting";
-import Admin from "./pages/Admin";
+import Infrastructure from "./pages/Infrastructure";
 import Schedule from "./pages/Schedule";
+import Map from "./pages/Map";
+import Awareness from "./pages/Awareness";
 import Centers from "./pages/Centers";
-import Intelligence from "./pages/Intelligence";
-import Recommendations from "./pages/Recommendations";
+import Resources from "./pages/Resources";
+import Achievements from "./pages/Achievements";
+import Reporting from "./pages/Reporting";
+import Impact from "./pages/Impact";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
@@ -25,15 +25,15 @@ const App = () => (
       <BrowserRouter>
         <Routes>
           <Route path="/" element={<Index />} />
-          <Route path="/education" element={<Education />} />
-          <Route path="/marketplace" element={<Marketplace />} />
-          <Route path="/credits" element={<CitizenScore />} />
-          <Route path="/report" element={<Reporting />} />
-          <Route path="/admin" element={<Admin />} />
+          <Route path="/infrastructure" element={<Infrastructure />} />
           <Route path="/schedule" element={<Schedule />} />
+          <Route path="/map" element={<Map />} />
+          <Route path="/awareness" element={<Awareness />} />
           <Route path="/centers" element={<Centers />} />
-          <Route path="/intelligence" element={<Intelligence />} />
-          <Route path="/recommendations" element={<Recommendations />} />
+          <Route path="/resources" element={<Resources />} />
+          <Route path="/achievements" element={<Achievements />} />
+          <Route path="/report" element={<Reporting />} />
+          <Route path="/impact" element={<Impact />} />
           
           <Route path="*" element={<NotFound />} />
         </Routes>
